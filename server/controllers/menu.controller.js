@@ -38,3 +38,16 @@ export const addItemToMenu = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
+
+export const getAMenu = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const menu = await Menu.findById(id);
+    if (!menu) throw new Error('Menu not found');
+
+    res.status(200).json(menu);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
