@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 import AddItemModal from './AddItemModal';
+import logo from '../../src/assets/logo.png';
 
 const Navbar = ({ menus, setMenus }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +24,7 @@ const Navbar = ({ menus, setMenus }) => {
     <nav className="bg-black text-white p-8 mx-auto">
       <div className="container mx-auto flex justify-between items-center">
         <img
-          src="../../src/assets/logo.png"
+          src={logo}
           alt="Deep Net Soft Logo"
           className="w-32 h-12 text-white"
         />

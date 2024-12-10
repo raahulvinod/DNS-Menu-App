@@ -1,5 +1,7 @@
 import React from 'react';
 
+import logo from '../../src/assets/logo.png';
+
 const Footer = () => {
   return (
     <footer className="bg-black text-white py-10 px-16">
@@ -13,7 +15,7 @@ const Footer = () => {
         <div className="text-center border border-white p-4 rounded-sm">
           <div className="flex justify-center items-center">
             <img
-              src="../../src/assets/logo.png"
+              src={logo}
               alt="Deep Net Soft Logo"
               className="w-32 h-12 text-white"
             />
