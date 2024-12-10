@@ -3,7 +3,7 @@ import 'dotenv/config';
 import cors from 'cors';
 
 import connectDb from './config/connectDb.js';
-import { notFound } from './middlewares/errorHandler.js';
+import { errorHandler, notFound } from './middlewares/errorHandler.js';
 import menuRouter from './routes/menu.route.js';
 
 const app = express();
@@ -22,6 +22,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1', menuRouter);
 
 app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running at PORT ${PORT}`);

@@ -25,7 +25,6 @@ const MenuList = ({ menus, setMenus, menuId, setMenuId }) => {
   }, []);
 
   useEffect(() => {
-    // Filter and set items based on the selected menuId
     const selectedMenu = menus.find((menu) => menu._id === menuId);
     setSelectedItems(selectedMenu ? selectedMenu || [] : []);
   }, [menuId, menus]);
