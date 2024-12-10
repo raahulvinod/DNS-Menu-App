@@ -35,7 +35,7 @@ const MenuItemList = ({ menuItems }) => {
                   </p>
                 </div>
                 <div>
-                  <p className="text-lg font-bold">${item.price}</p>
+                  <p className="text-lg font-bold">₹{item.price}</p>
                 </div>
               </div>
             ))}

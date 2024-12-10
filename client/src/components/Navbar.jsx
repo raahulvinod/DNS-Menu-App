@@ -1,22 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Modal from './Modal';
 
 const Navbar = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <nav className="bg-black text-white p-8 mx-auto">
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-lg font-bold">Deep Net Soft</h1>
         <ul className="flex space-x-4">
           <li>
-            <a href="#menu">Menu</a>
+            <button>Menu</button>
           </li>
           <li>
-            <a href="#reservation">Make a Reservation</a>
+            <button onClick={toggleModal}>Create Menu</button>
           </li>
           <li>
-            <a href="#contact">Contact Us</a>
+            <button>Make a Reservation</button>
+          </li>
+          <li>
+            <button>Contact Us</button>
           </li>
         </ul>
       </div>
+
+      {isModalOpen && <Modal toggleModal={toggleModal} />}
     </nav>
   );
 };
