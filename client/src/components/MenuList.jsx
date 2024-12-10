@@ -5,9 +5,11 @@ import MenuItemList from './MenuItemList';
 
 const MenuList = ({ menus, setMenus, menuId, setMenuId }) => {
   const [selectedItems, setSelectedItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchMenus = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get(import.meta.env.VITE_SERVER_DOMAIN);
         setMenus(response.data);
@@ -18,6 +20,8 @@ const MenuList = ({ menus, setMenus, menuId, setMenuId }) => {
         }
       } catch (error) {
         console.error('Error fetching menus:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -44,7 +48,7 @@ const MenuList = ({ menus, setMenus, menuId, setMenuId }) => {
           </button>
         ))}
       </div>
-      <MenuItemList menuItems={selectedItems} />
+      <MenuItemList menuItems={selectedItems} isLoading={isLoading} />
     </>
   );
 };

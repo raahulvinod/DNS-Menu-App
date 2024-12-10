@@ -1,6 +1,15 @@
 import React from 'react';
 
-const MenuItemList = ({ menuItems }) => {
+const MenuItemList = ({ menuItems, isLoading }) => {
+  if (isLoading) {
+    return (
+      <div className="bg-black text-white py-10 px-12 flex justify-center items-center min-h-screen">
+        <div className="loader border-t-4 border-blue-500 rounded-full w-12 h-12 animate-spin"></div>
+        <p className="text-gray-400 text-xl ml-4">Loading menu items...</p>
+      </div>
+    );
+  }
+
   if (!menuItems.items || menuItems.items.length === 0) {
     return (
       <div className="bg-black text-white py-10 px-12">
@@ -16,7 +25,7 @@ const MenuItemList = ({ menuItems }) => {
   return (
     <div className="bg-black text-white py-10 px-12">
       <div className="container mx-auto px-4">
-        {menuItems && (
+        {menuItems.items && (
           <div className="border border-white rounded-md p-6">
             <h2 className="text-center text-3xl font-bold tracking-wider uppercase mb-10">
               {menuItems.description || 'Menu Items'}
