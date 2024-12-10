@@ -12,9 +12,17 @@ const Footer = () => {
 
         <div className="text-center border border-white p-4 rounded-sm">
           <div className="flex justify-center items-center">
-            <img src="" alt="Deep Net Soft Logo" className="w-12 h-12" />
+            <img
+              src="../../src/assets/logo.png"
+              alt="Deep Net Soft Logo"
+              className="w-32 h-12 text-white"
+            />
           </div>
-          <h4 className="text-lg font-semibold mt-2">DEEP NET SOFT</h4>
+          <h4 className="text-lg font-semibold mt-2">
+            <span className="text-blue-500">DEEP</span>{' '}
+            <span className="text-white">NET</span>{' '}
+            <span className="text-gray-600">SOFT</span>
+          </h4>
           <div className="flex justify-center space-x-4 mt-2">
             <a href="#" className="text-gray-400 hover:text-white">
               <i className="fab fa-facebook-f"></i>

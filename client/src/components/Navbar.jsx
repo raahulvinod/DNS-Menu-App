@@ -22,7 +22,11 @@ const Navbar = ({ menus, setMenus }) => {
   return (
     <nav className="bg-black text-white p-8 mx-auto">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-lg font-bold">Deep Net Soft</h1>
+        <img
+          src="../../src/assets/logo.png"
+          alt="Deep Net Soft Logo"
+          className="w-32 h-12 text-white"
+        />
 
         <button className="md:hidden text-2xl" onClick={toggleMobileMenu}>
           &#9776;
