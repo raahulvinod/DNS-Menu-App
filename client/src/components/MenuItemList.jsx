@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MenuItemList = ({ menuItems }) => {
-  if (!menuItems || !menuItems.items) {
+  if (!menuItems.items || menuItems.items.length === 0) {
     return (
       <div className="bg-black text-white py-10 px-12">
         <div className="container mx-auto px-4">
@@ -13,12 +13,14 @@ const MenuItemList = ({ menuItems }) => {
     );
   }
 
+  console.log('menuItems', menuItems);
+
   return (
     <div className="bg-black text-white py-10 px-12">
       <div className="container mx-auto px-4">
         <div className="border border-white rounded-md p-6">
           <h2 className="text-center text-3xl font-bold tracking-wider uppercase mb-10">
-            {menuItems.description}
+            {menuItems.description || 'Menu Items'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-12">
             {menuItems.items.map((item, index) => (

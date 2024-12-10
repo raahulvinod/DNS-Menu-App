@@ -23,8 +23,8 @@ const Modal = ({ toggleModal, setMenus }) => {
         const response = await axios.post(
           `${import.meta.env.VITE_SERVER_DOMAIN}`,
           {
-            name: values.name,
-            description: values.description,
+            name: values.name.toUpperCase(),
+            description: values.description.toUpperCase(),
           }
         );
 

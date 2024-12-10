@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
-const AddItemModal = ({ toggleModal, menus }) => {
+const AddItemModal = ({ toggleModal, menus, setMenus }) => {
   const [items, setItems] = useState([]);
 
   const [selectedMenuId, setselectedMenuId] = useState();
 
-  console.log('selectedMenuId', selectedMenuId);
-
   const itemFormik = useFormik({
     initialValues: {
-      itemName: '',
-      itemDescription: '',
-      itemPrice: '',
+      name: '',
+      description: '',
+      price: '',
     },
     validationSchema: Yup.object({
-      itemName: Yup.string()
+      name: Yup.string()
         .required('Item Name is required')
         .min(2, 'Item Name must be at least 2 characters'),
-      itemDescription: Yup.string()
+      description: Yup.string()
         .required('Description is required')
         .min(5, 'Description must be at least 5 characters'),
-      itemPrice: Yup.number()
+      price: Yup.number()
         .required('Price is required')
         .min(1, 'Price must be at least $1')
         .typeError('Price must be a valid number'),
@@ -32,6 +32,32 @@ const AddItemModal = ({ toggleModal, menus }) => {
       resetForm();
     },
   });
+
+  const handleAddItem = async () => {
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_SERVER_DOMAIN}`,
+        {
+          id: selectedMenuId,
+          items,
+        }
+      );
+
+      setMenus((prevMenus) =>
+        prevMenus.map((menu) =>
+          menu._id === selectedMenuId
+            ? { ...menu, items: response.data.items }
+            : menu
+        )
+      );
+
+      toast.success('Items added successfully!');
+      toggleModal();
+    } catch (error) {
+      console.error('Error Adding Items:', error);
+      toast.error('Error Adding Items.');
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -75,66 +101,62 @@ const AddItemModal = ({ toggleModal, menus }) => {
         <form onSubmit={itemFormik.handleSubmit}>
           <div className="mb-4">
             <label
-              htmlFor="itemName"
+              htmlFor="name"
               className="block text-gray-100 font-semibold mb-2"
             >
               Item Name
             </label>
             <input
-              id="itemName"
-              name="itemName"
+              id="name"
+              name="name"
               type="text"
               className="w-full border border-gray-300 rounded px-3 py-2 text-gray-900"
               placeholder="Enter item name"
-              {...itemFormik.getFieldProps('itemName')}
+              {...itemFormik.getFieldProps('name')}
             />
-            {itemFormik.touched.itemName && itemFormik.errors.itemName && (
-              <p className="text-red-500 text-sm">
-                {itemFormik.errors.itemName}
-              </p>
+            {itemFormik.touched.name && itemFormik.errors.name && (
+              <p className="text-red-500 text-sm">{itemFormik.errors.name}</p>
             )}
           </div>
           <div className="mb-4">
             <label
-              htmlFor="itemDescription"
+              htmlFor="description"
               className="block text-gray-100 font-semibold mb-2"
             >
               Description
             </label>
             <textarea
-              id="itemDescription"
-              name="itemDescription"
+              id="description"
+              name="description"
               className="w-full border border-gray-300 rounded px-3 py-2 text-gray-900"
               placeholder="Enter item description"
               rows="2"
-              {...itemFormik.getFieldProps('itemDescription')}
+              {...itemFormik.getFieldProps('description')}
             ></textarea>
-            {itemFormik.touched.itemDescription &&
-              itemFormik.errors.itemDescription && (
+            {itemFormik.touched.description &&
+              itemFormik.errors.description && (
                 <p className="text-red-500 text-sm">
-                  {itemFormik.errors.itemDescription}
+                  {itemFormik.errors.description}
                 </p>
               )}
           </div>
           <div className="mb-4">
             <label
-              htmlFor="itemPrice"
+              htmlFor="price"
               className="block text-gray-100 font-semibold mb-2"
             >
               Price
             </label>
             <input
-              id="itemPrice"
-              name="itemPrice"
+              id="price"
+              name="price"
               type="number"
               className="w-full border border-gray-300 rounded px-3 py-2 text-gray-900"
               placeholder="Enter item price"
-              {...itemFormik.getFieldProps('itemPrice')}
+              {...itemFormik.getFieldProps('price')}
             />
-            {itemFormik.touched.itemPrice && itemFormik.errors.itemPrice && (
-              <p className="text-red-500 text-sm">
-                {itemFormik.errors.itemPrice}
-              </p>
+            {itemFormik.touched.price && itemFormik.errors.price && (
+              <p className="text-red-500 text-sm">{itemFormik.errors.price}</p>
             )}
           </div>
           <button
@@ -154,8 +176,8 @@ const AddItemModal = ({ toggleModal, menus }) => {
                   key={index}
                   className="bg-gray-800 text-gray-100 p-2 rounded"
                 >
-                  <strong>{item.itemName}</strong>: {item.itemDescription} - $
-                  {item.itemPrice} (Menu: {item.menu})
+                  <strong>{item.name}</strong>: {item.description} - ₹
+                  {item.price}
                 </li>
               ))}
             </ul>
@@ -167,9 +189,10 @@ const AddItemModal = ({ toggleModal, menus }) => {
         <div className="flex justify-end mt-4">
           <button
             type="submit"
+            onClick={handleAddItem}
             className="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2 hover:bg-gray-400"
           >
-            Add Item
+            Save
           </button>
         </div>
       </div>

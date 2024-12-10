@@ -4,9 +4,7 @@ import axios from 'axios';
 import MenuItemList from './MenuItemList';
 
 const MenuList = ({ menus, setMenus, menuId, setMenuId }) => {
-  //   const [menus, setMenus] = useState([]);
-  //   const [menuId, setMenuId] = useState(null);
-  const [items, setItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -16,6 +14,7 @@ const MenuList = ({ menus, setMenus, menuId, setMenuId }) => {
 
         if (response.data.length > 0) {
           setMenuId(response.data[0]._id);
+          setSelectedItems(response.data[0].items || []);
         }
       } catch (error) {
         console.error('Error fetching menus:', error);
@@ -26,21 +25,10 @@ const MenuList = ({ menus, setMenus, menuId, setMenuId }) => {
   }, []);
 
   useEffect(() => {
-    if (!menuId) return;
-
-    const fetchMenu = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_DOMAIN}/${menuId}`
-        );
-        setItems(response.data);
-      } catch (error) {
-        console.error('Error fetching menu:', error);
-      }
-    };
-
-    fetchMenu();
-  }, [menuId]);
+    // Filter and set items based on the selected menuId
+    const selectedMenu = menus.find((menu) => menu._id === menuId);
+    setSelectedItems(selectedMenu ? selectedMenu || [] : []);
+  }, [menuId, menus]);
 
   return (
     <>
@@ -57,7 +45,7 @@ const MenuList = ({ menus, setMenus, menuId, setMenuId }) => {
           </button>
         ))}
       </div>
-      <MenuItemList menuItems={items} />
+      <MenuItemList menuItems={selectedItems} />
     </>
   );
 };

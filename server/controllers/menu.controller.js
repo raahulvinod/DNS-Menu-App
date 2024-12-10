@@ -22,16 +22,23 @@ export const getAllMenus = async (req, res) => {
 
 export const addItemToMenu = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { name, description, price } = req.body;
+    const { id, items } = req.body;
+
+    if (items.length === 0) {
+      return res
+        .status(400)
+        .json({ message: 'Items must be at least one item' });
+    }
 
     const menu = await Menu.findByIdAndUpdate(
       id,
-      { $push: { items: { name, description, price } } },
+      { $push: { items: { $each: items } } },
       { new: true }
     );
 
-    if (!menu) throw new Error('Menu not found');
+    if (!menu) {
+      return res.status(404).json({ message: 'Menu not found' });
+    }
 
     res.status(200).json(menu);
   } catch (err) {

@@ -9,6 +9,7 @@ import Hero from './components/Hero';
 const App = () => {
   const [menus, setMenus] = useState([]);
   const [menuId, setMenuId] = useState(null);
+
   return (
     <Router>
       <Toaster position="top-center" reverseOrder={false} />

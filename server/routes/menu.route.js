@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post('/', createMenu);
 router.get('/', getAllMenus);
-router.put('/:id', addItemToMenu);
+router.put('/', addItemToMenu);
 router.get('/:id', getAMenu);
 
 export default router;
