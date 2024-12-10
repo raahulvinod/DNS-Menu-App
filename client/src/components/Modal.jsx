@@ -18,7 +18,22 @@ const Modal = ({ toggleModal }) => {
         .min(5, 'Description must be at least 5 characters long'),
     }),
     onSubmit: async (values) => {
-      console.log(values);
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_SERVER_DOMAIN}`,
+          {
+            name: values.name,
+            description: values.description,
+          }
+        );
+
+        console.log('Menu created:', response.data);
+        alert('Menu Added successfully!');
+        toggleModal();
+      } catch (error) {
+        console.error('Error creating menu:', error);
+        alert('Error creating menu.');
+      }
     },
   });
 
