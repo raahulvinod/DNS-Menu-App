@@ -9,12 +9,10 @@ import Hero from './components/Hero';
 const App = () => {
   const [menus, setMenus] = useState([]);
   const [menuId, setMenuId] = useState(null);
-
-  console.log(menus);
   return (
     <Router>
       <Toaster position="top-center" reverseOrder={false} />
-      <Navbar menus={menus} setMenus={setMenus} />
+      <Navbar setMenus={setMenus} menus={menus} />
       <Hero />
       <MenuList
         menus={menus}
