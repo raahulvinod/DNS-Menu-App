@@ -5,6 +5,7 @@ import AddItemModal from './AddItemModal';
 const Navbar = ({ menus, setMenus }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddItemModal, setIsAddItemModal] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -14,25 +15,91 @@ const Navbar = ({ menus, setMenus }) => {
     setIsAddItemModal(!isAddItemModal);
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <nav className="bg-black text-white p-8 mx-auto">
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-lg font-bold">Deep Net Soft</h1>
-        <ul className="flex space-x-4">
+
+        <button className="md:hidden text-2xl" onClick={toggleMobileMenu}>
+          &#9776;
+        </button>
+
+        {/* Destop Nav */}
+        <ul className={`hidden md:flex space-x-4`}>
           <li>
-            <button>Menu</button>
+            <button className="hover:text-[#0796EF] transition duration-200">
+              HOME
+            </button>
           </li>
           <li>
-            <button onClick={toggleModal}>Create Menu</button>
+            <button
+              onClick={toggleModal}
+              className="hover:text-[#0796EF] transition duration-200"
+            >
+              CREATE MENU
+            </button>
           </li>
           <li>
-            <button onClick={toggleAddItem}>Add Items</button>
+            <button
+              onClick={toggleAddItem}
+              className="hover:text-[#0796EF] transition duration-200"
+            >
+              ADD ITEMS
+            </button>
           </li>
           <li>
-            <button>Make a Reservation</button>
+            <button className="hover:text-[#0796EF] transition duration-200">
+              MAKE RESERVATION
+            </button>
           </li>
           <li>
-            <button>Contact Us</button>
+            <button className="hover:text-[#0796EF] transition duration-200">
+              CONTACT US
+            </button>
+          </li>
+        </ul>
+
+        {/* Mobile Nav */}
+        <ul
+          className={`md:hidden ${
+            isMobileMenuOpen ? 'block' : 'hidden'
+          } bg-black absolute top-16 left-0 w-full p-6 space-y-4`}
+        >
+          <li>
+            <button className="hover:text-[#0796EF] transition duration-200 w-full">
+              HOME
+            </button>
+          </li>
+
+          <li>
+            <button
+              onClick={toggleModal}
+              className="hover:text-[#0796EF] transition duration-200 w-full"
+            >
+              CREATE MENU
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={toggleAddItem}
+              className="hover:text-[#0796EF] transition duration-200 w-full"
+            >
+              ADD ITEMS
+            </button>
+          </li>
+          <li>
+            <button className="hover:text-[#0796EF] transition duration-200 w-full">
+              MAKE RESERVATION
+            </button>
+          </li>
+          <li>
+            <button className="hover:text-[#0796EF] transition duration-200 w-full">
+              CONTACT US
+            </button>
           </li>
         </ul>
       </div>
