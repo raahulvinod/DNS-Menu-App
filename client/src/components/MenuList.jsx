@@ -3,9 +3,9 @@ import axios from 'axios';
 
 import MenuItemList from './MenuItemList';
 
-const MenuList = () => {
-  const [menus, setMenus] = useState([]);
-  const [menuId, setMenuId] = useState(null);
+const MenuList = ({ menus, setMenus, menuId, setMenuId }) => {
+  //   const [menus, setMenus] = useState([]);
+  //   const [menuId, setMenuId] = useState(null);
   const [items, setItems] = useState([]);
 
   useEffect(() => {

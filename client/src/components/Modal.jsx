@@ -2,8 +2,9 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
-const Modal = ({ toggleModal }) => {
+const Modal = ({ toggleModal, setMenus }) => {
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -27,12 +28,13 @@ const Modal = ({ toggleModal }) => {
           }
         );
 
-        console.log('Menu created:', response.data);
-        alert('Menu Added successfully!');
+        setMenus((prevMenus) => [...prevMenus, response.data]);
+
+        toast.success('Menu created successfully!');
         toggleModal();
       } catch (error) {
         console.error('Error creating menu:', error);
-        alert('Error creating menu.');
+        toast.error('Error creating menu.');
       }
     },
   });

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 
-const Navbar = () => {
+const Navbar = ({ menus, setMenus }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
@@ -28,7 +28,7 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {isModalOpen && <Modal toggleModal={toggleModal} />}
+      {isModalOpen && <Modal toggleModal={toggleModal} setMenus={setMenus} />}
     </nav>
   );
 };
