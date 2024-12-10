@@ -35,7 +35,7 @@ const MenuList = ({ menus, setMenus, menuId, setMenuId }) => {
 
   return (
     <>
-      <div className="flex justify-center space-x-4 bg-black py-4">
+      <div className="flex flex-wrap justify-center space-x-0 space-y-0 md:space-y-0 md:space-x-4 bg-black py-4">
         {menus.map((menu) => (
           <button
             key={menu._id}

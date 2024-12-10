@@ -30,22 +30,24 @@ const MenuItemList = ({ menuItems, isLoading }) => {
             <h2 className="text-center text-3xl font-bold tracking-wider uppercase mb-10">
               {menuItems.description || 'Menu Items'}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 md:gap-8 md:p-12">
               {menuItems.items.map((item, index) => (
                 <div
                   key={index}
-                  className="flex justify-between items-center border-b border-gray-700 pb-4"
+                  className="flex justify-between items-center border-b border-gray-700 pb-2 md:pb-4"
                 >
                   <div>
-                    <h3 className="text-xl font-semibold tracking-wider">
+                    <h3 className="text-base md:text-xl font-semibold tracking-wider">
                       {item.name}
                     </h3>
-                    <p className="text-gray-400 text-sm mt-1">
+                    <p className="text-gray-400 text-xs md:text-sm mt-1">
                       {item.description}
                     </p>
                   </div>
                   <div>
-                    <p className="text-lg font-bold">₹{item.price}</p>
+                    <p className="text-sm md:text-lg font-bold">
+                      ₹{item.price}
+                    </p>
                   </div>
                 </div>
               ))}
